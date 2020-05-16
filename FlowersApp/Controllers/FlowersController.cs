@@ -22,9 +22,22 @@ namespace FlowersApp.Controllers
 
         // GET: api/Flowers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Flower>>> GetFlowers()
+        public async Task<ActionResult<IEnumerable<Flower>>> GetFlowers(
+            [FromQuery]DateTimeOffset? from = null, 
+            [FromQuery]DateTimeOffset? to = null)
         {
-            return await _context.Flowers.ToListAsync();
+            IQueryable<Flower> result = _context.Flowers;
+            if (from != null)
+            {
+                result = result.Where(f => from <= f.DateAdded);
+            }
+            if (to != null)
+            {
+                result = result.Where(f => f.DateAdded <= to);
+            }
+
+            var resultList = await result.ToListAsync();
+            return resultList;
         }
 
         // GET: api/Flowers/5
