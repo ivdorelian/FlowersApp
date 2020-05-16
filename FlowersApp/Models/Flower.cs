@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FlowersApp.Models
 {
@@ -18,5 +19,7 @@ namespace FlowersApp.Models
         public DateTimeOffset DateAdded { get; set; }
         public long MarketPrice { get; set; }
         public FlowerUpkeepDifficulty FlowerUpkeepDifficulty { get; set; }
+
+        public List<Comment> Comments { get; set; }
     }
 }

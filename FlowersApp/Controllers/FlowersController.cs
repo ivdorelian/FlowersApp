@@ -9,6 +9,12 @@ using FlowersApp.Models;
 
 namespace FlowersApp.Controllers
 {
+
+
+    // TODO: make CRUD comments work with URL api/Flowers/{id}/Comments
+    // TODO: make CRUD comments with another comments controller: api/comments/{flower id}
+    // TODO: write a validator for comments
+
     [Route("api/[controller]")]
     [ApiController]
     public class FlowersController : ControllerBase
@@ -20,13 +26,13 @@ namespace FlowersApp.Controllers
             _context = context;
         }
 
-        // GET: api/Flowers
+        // GET: api/Flowers, read more about swagger: https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio
         /// <summary>
-        /// Gets a list of all the flowers.
+        /// Gets a list of all the flowers. 
         /// </summary>
         /// <param name="from">Filter flowers added from this date time (inclusive). Leave empty for no lower limit.</param>
         /// <param name="to">Filter flowers add up to this date time (inclusive). Leave empty for no upper limit.</param>
-        /// <returns>A list of Flower objects.</returns>
+        /// <returns>A list of Flower objects.</returns>       
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Flower>>> GetFlowers(
             [FromQuery]DateTimeOffset? from = null, 
