@@ -36,7 +36,9 @@ namespace FlowersApp.Controllers
                 result = result.Where(f => f.DateAdded <= to);
             }
 
-            var resultList = await result.ToListAsync();
+            var resultList = await result
+                .OrderByDescending(f => f.MarketPrice)
+                .ToListAsync();
             return resultList;
         }
 
