@@ -21,6 +21,12 @@ namespace FlowersApp.Controllers
         }
 
         // GET: api/Flowers
+        /// <summary>
+        /// Gets a list of all the flowers.
+        /// </summary>
+        /// <param name="from">Filter flowers added from this date time (inclusive). Leave empty for no lower limit.</param>
+        /// <param name="to">Filter flowers add up to this date time (inclusive). Leave empty for no upper limit.</param>
+        /// <returns>A list of Flower objects.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Flower>>> GetFlowers(
             [FromQuery]DateTimeOffset? from = null, 
