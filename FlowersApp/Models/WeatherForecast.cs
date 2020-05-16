@@ -1,6 +1,6 @@
 using System;
 
-namespace FlowersApp
+namespace FlowersApp.Models
 {
     public class WeatherForecast
     {
