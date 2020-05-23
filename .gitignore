@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/FlowersApp/wwwroot/dist
+/FlowersApp/ClientApp/package-lock.json
+/FlowersApp/appsettings.Development.json
