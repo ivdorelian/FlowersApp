@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FlowersApp.Models;
+using FlowersApp.ViewModels;
 
 namespace FlowersApp.Controllers
 {
@@ -34,7 +35,7 @@ namespace FlowersApp.Controllers
         /// <param name="to">Filter flowers add up to this date time (inclusive). Leave empty for no upper limit.</param>
         /// <returns>A list of Flower objects.</returns>       
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Flower>>> GetFlowers(
+        public async Task<ActionResult<IEnumerable<FlowerWithNumberOfComments>>> GetFlowers(
             [FromQuery]DateTimeOffset? from = null, 
             [FromQuery]DateTimeOffset? to = null)
         {
@@ -50,22 +51,27 @@ namespace FlowersApp.Controllers
 
             var resultList = await result
                 .OrderByDescending(f => f.MarketPrice)
+                .Include(f => f.Comments)
+                .Select(f => FlowerWithNumberOfComments.FromFlower(f))
                 .ToListAsync();
             return resultList;
         }
 
         // GET: api/Flowers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Flower>> GetFlower(long id)
+        public async Task<ActionResult<FlowerDetails>> GetFlower(long id)
         {
-            var flower = await _context.Flowers.FindAsync(id);
+            var flower = await _context
+                .Flowers
+                .Include(f => f.Comments)
+                .FirstOrDefaultAsync(f => f.Id == id);
 
             if (flower == null)
             {
                 return NotFound();
             }
 
-            return flower;
+            return FlowerDetails.FromFlower(flower);
         }
 
         // PUT: api/Flowers/5

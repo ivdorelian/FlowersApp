@@ -6,29 +6,34 @@ import { HttpClient } from '@angular/common/http';
     templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-    public forecasts: WeatherForecast[];
-
     public flowers: Flower[];
 
     public name: string = "test";
 
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-
-        http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-            this.forecasts = result;
-        }, error => console.error(error));
-
-        this.loadFlowes();
+        this.loadFlowers();
     }
 
 
-    loadFlowes() {
+    loadFlowers() {
         this.http.get<Flower[]>(this.baseUrl + 'api/Flowers').subscribe(result => {
             this.flowers = result;
-
             console.log(this.flowers);
-
         }, error => console.error(error));
+    }
+
+    delete(flowerId: string) {
+        if (confirm('Are you sure you want to delete the flower with id ' + flowerId + '?')) {
+            this.http.delete(this.baseUrl + 'api/Flowers/' + flowerId)
+                .subscribe
+                (
+                    result => {
+                        alert('Flower successfully deleted!');
+                        this.loadFlowers();
+                    },
+                    error => alert('Cannot delete flower - maybe it has comments?')
+                )
+        }
     }
 
     submit() {
@@ -41,28 +46,19 @@ export class FetchDataComponent {
         flower.marketPrice = 5;
 
         this.http.post(this.baseUrl + 'api/Flowers', flower).subscribe(result => {
-
             console.log('success!');
-
-            this.loadFlowes();
+            this.loadFlowers();
         },
-            error => {
-
-                if (error.status == 400) {
-                    console.log(error.error.errors)
-                }
-            });
+        error => {    
+            if (error.status == 400) {
+                console.log(error.error.errors)
+            }
+        });
     }
 }
 
-interface WeatherForecast {
-    date: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
-}
-
 interface Flower {
+    id: number;
     dateAdded: Date;
     name: string;
     description: string;

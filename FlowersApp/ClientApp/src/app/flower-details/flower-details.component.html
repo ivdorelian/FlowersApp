@@ -1,0 +1,40 @@
+
+<p *ngIf="!flower"><em>Loading...</em></p>
+
+<a [routerLink]="['/fetch-data']" routerLinkActive="active">Back</a>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="flower">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ flower.name }}</td>
+        </tr>
+
+        <tr>
+            <th>Description</th>
+            <td>{{ flower.description }}</td>
+        </tr>
+        <tr>
+            <th>Market price</th>
+            <td>{{ flower.marketPrice }}</td>
+        </tr>
+        <tr>
+            <th>Upkeep difficulty</th>
+            <td>{{ flower.flowerUpkeepDifficulty }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Comments</h2>
+<table *ngIf="flower">
+    <thead>
+        <tr>
+            <th>Content</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tr *ngFor="let comment of flower.comments">
+        <td>{{ comment.content }}</td>
+        <td>{{ comment.author }}</td>
+    </tr>
+</table>
+<a [routerLink]="['/fetch-data']" routerLinkActive="active">Back</a>
