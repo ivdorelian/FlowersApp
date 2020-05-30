@@ -12,5 +12,6 @@ namespace FlowersApp.Models
         public string Author { get; set; }
         public string Content { get; set; }
         public Flower Flower { get; set; }
+        public User AddedBy { get; set; }
     }
 }

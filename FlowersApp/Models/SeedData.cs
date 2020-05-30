@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FlowersApp.Helpers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,18 @@ namespace FlowersApp.Models
         {
             using (var context = new FlowersDbContext(serviceProvider.GetRequiredService<DbContextOptions<FlowersDbContext>>()))
             {
+                if (!context.Users.Any())
+                {
+                    context.Users.Add(new User
+                    {
+                        FirstName = "First",
+                        LastName = "Last",
+                        Username = "FirstUsername",
+                        Password = HashUtils.GetHashString("parolasigura")
+                    });
+                    context.SaveChanges();
+                }
+
                 // Look for any flowers.
                 if (context.Flowers.Any())
                 {

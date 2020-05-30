@@ -20,6 +20,7 @@ namespace FlowersApp.Models
         public long MarketPrice { get; set; }
         public FlowerUpkeepDifficulty FlowerUpkeepDifficulty { get; set; }
 
+        public User AddedBy { get; set; }
         public List<Comment> Comments { get; set; }
     }
 }
