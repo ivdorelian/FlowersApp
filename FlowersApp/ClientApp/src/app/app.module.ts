@@ -24,6 +24,9 @@ const routes: Routes = [
     { path: 'register', component: RegistrationComponent },
     { path: 'login', component: LoginComponent },
 
+    { path: 'flowers', loadChildren: './flowers/flowers.module#FlowersModule' },
+
+
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'counter', component: CounterComponent },
     {

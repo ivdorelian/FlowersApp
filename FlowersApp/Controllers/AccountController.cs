@@ -34,29 +34,20 @@ namespace FlowersApp.Controllers
         [HttpPost]
         public async Task<ActionResult> Register([FromBody]RegisterModel registerModel)
         {
-            try
+            IdentityUser identityUser = new IdentityUser() { Email = registerModel.Email, UserName = registerModel.Email };
+
+            IdentityResult result = await userManager.CreateAsync(identityUser, registerModel.Password);
+
+            if (!result.Succeeded)
             {
-
-                IdentityUser identityUser = new IdentityUser() { Email = registerModel.Email, UserName = registerModel.Email };
-
-                IdentityResult result = await userManager.CreateAsync(identityUser, registerModel.Password);
-
-                if (!result.Succeeded)
-                {
-                    return BadRequest(result.ToString());
-                }
-
-                IdentityUser user = await userManager.FindByEmailAsync(registerModel.Email);
-
-                await LoginUser(user, registerModel.Password, false);
-
-                return Ok(GenerateToken(registerModel.Email, user));
-
+                return BadRequest(result.ToString());
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            IdentityUser user = await userManager.FindByEmailAsync(registerModel.Email);
+
+            await LoginUser(user, registerModel.Password, false);
+
+            return Ok(GenerateToken(registerModel.Email, user));
         }
 
         [HttpPost]

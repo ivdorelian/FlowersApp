@@ -1,12 +1,11 @@
-﻿using System;
+﻿using FlowersApp.Models;
+using FlowersApp.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using FlowersApp.Models;
-using FlowersApp.ViewModels;
 
 namespace FlowersApp.Controllers
 {
@@ -36,9 +35,11 @@ namespace FlowersApp.Controllers
         /// <returns>A list of Flower objects.</returns>       
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FlowerWithNumberOfComments>>> GetFlowers(
-            [FromQuery]DateTimeOffset? from = null, 
+            [FromQuery]DateTimeOffset? from = null,
             [FromQuery]DateTimeOffset? to = null)
         {
+            var identity = User.Identity;
+
             IQueryable<Flower> result = _context.Flowers;
             if (from != null)
             {
