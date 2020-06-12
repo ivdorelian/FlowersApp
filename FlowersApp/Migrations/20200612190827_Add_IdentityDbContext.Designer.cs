@@ -4,14 +4,16 @@ using FlowersApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlowersApp.Migrations
 {
     [DbContext(typeof(FlowersDbContext))]
-    partial class FlowersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200612190827_Add_IdentityDbContext")]
+    partial class Add_IdentityDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

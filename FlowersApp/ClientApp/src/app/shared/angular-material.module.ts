@@ -1,24 +1,89 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
+
+import {
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatBadgeModule,
+    MatListModule,
+    MatTableModule,
+    MatGridListModule,
+
+    MatFormFieldModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatChipsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatCardModule,
+
+    MatDatepickerModule,
+    MatNativeDateModule,
+
+} from '@angular/material';
 
 @NgModule({
-    declarations: [],
     imports: [
         CommonModule,
-        MatSliderModule,
         MatSlideToggleModule,
-        MatTableModule
+        MatSliderModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatBadgeModule,
+        MatListModule,
+        MatTableModule,
+        MatGridListModule,
+
+        MatFormFieldModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatChipsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+
+        MatPaginatorModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatCardModule
     ],
     exports: [
-        MatSliderModule,
         MatSlideToggleModule,
+        MatSliderModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatBadgeModule,
+        MatListModule,
         MatTableModule,
+        MatGridListModule,
+
+        MatFormFieldModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatChipsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+
+        MatPaginatorModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
         MatCardModule
-    ]
+    ],
 })
 
 export class AngularMaterialModule { }
