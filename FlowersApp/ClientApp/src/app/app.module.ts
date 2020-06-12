@@ -30,12 +30,6 @@ import { FlowerDetailsComponent } from './flower-details/flower-details.componen
             {
                 path: 'fetch-data',
                 component: FetchDataComponent,
-                //children: [
-                //    {
-                //        path: 'flower-details/:flowerId',
-                //        component: FlowerDetailsComponent
-                //    }
-                //]
             },
             {
                 path: 'fetch-data/:flowerId',

@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-flower-details',
-  templateUrl: './flower-details.component.html',
-  styleUrls: ['./flower-details.component.css']
+    selector: 'app-flower-details',
+    templateUrl: './flower-details.component.html',
+    styleUrls: ['./flower-details.component.css']
 })
 export class FlowerDetailsComponent implements OnInit {
 
-    private flower: FlowerWithDetails;
+    public flower: FlowerWithDetails;
 
     constructor(
         private http: HttpClient,
