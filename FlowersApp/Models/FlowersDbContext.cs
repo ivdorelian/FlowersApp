@@ -1,17 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlowersApp.Models
 {
-    public class FlowersDbContext : DbContext
+    public class FlowersDbContext : IdentityDbContext
     {
-        public FlowersDbContext(DbContextOptions<FlowersDbContext> options)
-            : base(options)
-        {
-        }
-
         public DbSet<Flower> Flowers { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public FlowersDbContext(DbContextOptions<FlowersDbContext> options)
+            : base(options)
+        { }
     }
 }
