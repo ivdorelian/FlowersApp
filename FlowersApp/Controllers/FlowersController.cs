@@ -36,9 +36,11 @@ namespace FlowersApp.Controllers
         /// <returns>A list of Flower objects.</returns>       
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FlowerWithNumberOfComments>>> GetFlowers(
-            [FromQuery]DateTimeOffset? from = null, 
+            [FromQuery]DateTimeOffset? from = null,
             [FromQuery]DateTimeOffset? to = null)
         {
+            var identity = User.Identity;
+
             IQueryable<Flower> result = _context.Flowers;
             if (from != null)
             {

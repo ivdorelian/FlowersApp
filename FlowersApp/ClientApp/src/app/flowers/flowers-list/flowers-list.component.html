@@ -1,0 +1,57 @@
+
+<h1>Flowers</h1>
+
+<p>Many flowers in the list</p>
+
+<div class="example-button-row">
+    <button mat-raised-button [routerLink]='["../edit"]' color="primary">Add</button>
+</div>
+
+<table mat-table [dataSource]="flowers" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef style="width:21%"> Name </th>
+        <td mat-cell *matCellDef="let flower"> {{flower.name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef style="width:23%"> Description </th>
+        <td mat-cell *matCellDef="let flower"> {{flower.description}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="marketPrice">
+        <th mat-header-cell *matHeaderCellDef style="width:23%"> Market price </th>
+        <td mat-cell *matCellDef="let flower"> {{flower.marketPrice}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="numberOfComments">
+        <th mat-header-cell *matHeaderCellDef style="width:23%"> No. of comments </th>
+        <td mat-cell *matCellDef="let flower"> {{flower.numberOfComments}} </td>
+    </ng-container>
+
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef style="width:10%"> Action </th>
+        <td mat-cell *matCellDef="let flower">
+            <button mat-icon-button matTooltip="Edit" [matTooltipPosition]="'after'">
+                <mat-icon aria-label="Example icon-button with a heart icon" [routerLink]="['../edit', flower.id]">edit</mat-icon>
+            </button>
+
+            <button mat-icon-button matTooltip="Delete" [matTooltipPosition]="'after'">
+                <mat-icon aria-label="Example icon-button with a heart icon " (click)="deleteFlower(flower)">delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-progress-bar mode="indeterminate" *ngIf="!flowers"></mat-progress-bar>
