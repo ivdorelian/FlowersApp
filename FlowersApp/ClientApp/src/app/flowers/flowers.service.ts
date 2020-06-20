@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Flower } from './flowers.models';
 import { ApplicationService } from '../core/services/application.service';
+import { PaginatedFlowers } from './paginatedFlowers.models';
+import { PageEvent } from '@angular/material/paginator';
 
 @Injectable()
 export class FlowersService {
@@ -15,8 +17,13 @@ export class FlowersService {
         return this.http.get<Flower>(`${this.applicationService.baseUrl}api/Flowers/${id}`);
     }
 
-    listFlowers() {
-        return this.http.get<Flower[]>(`${this.applicationService.baseUrl}api/Flowers`);
+    listFlowers(event?: PageEvent) {
+
+        let pageIndex = event ? event.pageIndex + "" : "0";
+        let itemsPerPage = event ? event.pageSize + "" : "25";
+        console.log(event);
+        let params = new HttpParams().set("page", pageIndex).set("itemsPerPage", itemsPerPage); //Create new HttpParams
+        return this.http.get<PaginatedFlowers>(`${this.applicationService.baseUrl}api/Flowers`, { params: params });
     }
 
     saveFlower(flower: Flower) {

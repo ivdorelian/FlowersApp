@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Flower } from '../flowers.models';
 import { FlowersService } from '../flowers.service';
+import { PaginatedFlowers } from '../paginatedFlowers.models';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-flowers-list',
@@ -11,17 +13,19 @@ import { FlowersService } from '../flowers.service';
 export class FlowersListComponent implements OnInit {
 
     public displayedColumns: string[] = ['name', 'description', 'marketPrice', 'numberOfComments', 'action'];
-    public flowers: Flower[];
+    public flowers: PaginatedFlowers;
+    public pageEvent: PageEvent;
 
     constructor(private flowersService: FlowersService) {
     }
 
     ngOnInit() {
-        this.loadFlowers();
+        this.loadFlowers(null);
     }
 
-    loadFlowers() {
-        this.flowersService.listFlowers().subscribe(res => {
+    loadFlowers(event?: PageEvent) {
+        this.flowers = null;
+        this.flowersService.listFlowers(event).subscribe(res => {
             this.flowers = res;
         });
     }

@@ -7,7 +7,15 @@
     <button mat-raised-button [routerLink]='["../edit"]' color="primary">Add</button>
 </div>
 
-<table mat-table [dataSource]="flowers" class="mat-elevation-z8">
+<p>Current page: {{flowers?.currentPage}}</p>
+<p>Last page: {{flowers?.totalPages}}</p>
+
+<mat-paginator [length]="flowers?.totalItems"
+               [pageSize]="flowers?.itemsPerPage"
+               [pageSizeOptions]="[5, 25, 50, 100]"
+               (page)="pageEvent = loadFlowers($event)">
+</mat-paginator>
+<table mat-table [dataSource]="flowers?.items" class="mat-elevation-z8" *ngIf="flowers">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -53,5 +61,9 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-
 <mat-progress-bar mode="indeterminate" *ngIf="!flowers"></mat-progress-bar>
+
+<mat-paginator [length]="flowers?.totalItems"
+               [pageSize]="flowers?.itemsPerPage"
+               [pageSizeOptions]="[5, 25, 50, 100]"
+               (page)="pageEvent = loadFlowers($event)">

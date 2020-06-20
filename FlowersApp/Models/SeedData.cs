@@ -15,30 +15,25 @@ namespace FlowersApp.Models
             using (var context = new FlowersDbContext(serviceProvider.GetRequiredService<DbContextOptions<FlowersDbContext>>()))
             {
                 // Look for any flowers.
-                if (context.Flowers.Any())
+                if (context.Flowers.Count() >= 2000)
                 {
                     return;   // DB table has been seeded
                 }
 
-                context.Flowers.AddRange(
-                    new Flower
-                    {
-                        Name = "Rose",
-                        Description = "Has thorns",
-                        DateAdded = DateTime.Now,
-                        MarketPrice = 10,
-                        FlowerUpkeepDifficulty = FlowerUpkeepDifficulty.Medium
-                    },
-                    
-                    new Flower
-                    {
-                        Name = "Tulip",
-                        Description = "Does not have thorns",
-                        DateAdded = DateTime.UtcNow,
-                        MarketPrice = 15,
-                        FlowerUpkeepDifficulty = FlowerUpkeepDifficulty.Easy
-                    }
-                );
+                for (int i = 1; i <= 2000; ++i)
+                {
+                    context.Flowers.Add(
+                        new Flower
+                        {
+                            Name = $"Flower-{i}",
+                            Description = $"Description-{i}",
+                            DateAdded = DateTime.Now,
+                            MarketPrice = i,
+                            FlowerUpkeepDifficulty = FlowerUpkeepDifficulty.Medium
+                        }
+                    );
+                }
+
                 context.SaveChanges();
             }
         }

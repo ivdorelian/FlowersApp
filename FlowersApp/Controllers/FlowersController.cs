@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FlowersApp.Models;
 using FlowersApp.ViewModels;
+using FlowersApp.ViewModels.Collections;
 
 namespace FlowersApp.Controllers
 {
@@ -33,11 +34,15 @@ namespace FlowersApp.Controllers
         /// </summary>
         /// <param name="from">Filter flowers added from this date time (inclusive). Leave empty for no lower limit.</param>
         /// <param name="to">Filter flowers add up to this date time (inclusive). Leave empty for no upper limit.</param>
+        /// <param name="page">The page of results, starting from 0.</param>
+        /// <param name="itemsPerPage">The number of flowers to display per page.</param>
         /// <returns>A list of Flower objects.</returns>       
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FlowerWithNumberOfComments>>> GetFlowers(
+        public async Task<IActionResult> GetFlowers(
             [FromQuery]DateTimeOffset? from = null,
-            [FromQuery]DateTimeOffset? to = null)
+            [FromQuery]DateTimeOffset? to = null,
+            [FromQuery]int page=0,
+            [FromQuery]int itemsPerPage=15)
         {
             var identity = User.Identity;
 
@@ -54,9 +59,15 @@ namespace FlowersApp.Controllers
             var resultList = await result
                 .OrderByDescending(f => f.MarketPrice)
                 .Include(f => f.Comments)
+                .Skip(page * itemsPerPage)
+                .Take(itemsPerPage)
                 .Select(f => FlowerWithNumberOfComments.FromFlower(f))
                 .ToListAsync();
-            return resultList;
+
+            var paginatedList = new PaginatedList<FlowerWithNumberOfComments>(page, await result.CountAsync(), itemsPerPage);
+            paginatedList.Items.AddRange(resultList);
+
+            return Ok(paginatedList);
         }
 
         // GET: api/Flowers/5
