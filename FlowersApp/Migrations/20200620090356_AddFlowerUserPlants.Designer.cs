@@ -4,14 +4,16 @@ using FlowersApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlowersApp.Migrations
 {
     [DbContext(typeof(FlowersDbContext))]
-    partial class FlowersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200620090356_AddFlowerUserPlants")]
+    partial class AddFlowerUserPlants
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,10 +99,9 @@ namespace FlowersApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("FlowerId");
 
-                    b.HasIndex("FlowerId", "UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("FlowerUserPlants");
                 });
